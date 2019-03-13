@@ -11,11 +11,49 @@ public final class StringDuplicateDeleter extends DuplicateDeleter<String> {
 
     @Override
     public String[] removeDuplicates(int maxNumberOfDuplications) {
-        return new String[0];
+        int indexesToBeRemoved = 0;
+        for (int i = 0; i < array.length; i++){
+            if (countFrequency(array[i]) >= maxNumberOfDuplications){
+                indexesToBeRemoved++;
+            }
+        }
+        String[] duplicatesRemoved = new String[array.length - indexesToBeRemoved];
+        Integer indexInNewArray = 0;
+        for (int i = 0; i < array.length; i++){
+            if (countFrequency(array[i]) < maxNumberOfDuplications){
+                duplicatesRemoved[indexInNewArray] = array[i];
+                indexInNewArray++;
+            }
+        }
+        return duplicatesRemoved;
     }
 
     @Override
     public String[] removeDuplicatesExactly(int exactNumberOfDuplications) {
-        return new String[0];
+        int indexesToBeRemoved = 0;
+        for (int i = 0; i < array.length; i++){
+            if (countFrequency(array[i]) == exactNumberOfDuplications){
+                indexesToBeRemoved++;
+            }
+        }
+        String[] duplicatesRemoved = new String[array.length - indexesToBeRemoved];
+        Integer indexInNewArray = 0;
+        for (int i = 0; i < array.length; i++){
+            if (countFrequency(array[i]) != exactNumberOfDuplications){
+                duplicatesRemoved[indexInNewArray] = array[i];
+                indexInNewArray++;
+            }
+        }
+        return duplicatesRemoved;
+    }
+
+    public Integer countFrequency(String element){
+        Integer frequency = 0;
+        for (int i = 0; i < array.length; i++){
+            if (element.equals(array[i])){
+                frequency++;
+            }
+        }
+        return frequency;
     }
 }
